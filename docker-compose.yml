@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  jira:
+    image: cptactionhank/atlassian-jira:latest
+    volumes:
+      - jira_data:/var/atlassian/jira
+    restart: always
+    container_name: jira
+    ports:
+      - "8080:8080"
+    networks:
+      - jiranet
+  database:
+    image: mysql:5.7
+    volumes:
+      - ${PWD}/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: REPLACE_MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: jira_db
+      MYSQL_USER: jira_user
+      MYSQL_PASSWORD: REPLACE_MYSQL_PASSWORD
+    container_name: mysql_jira
+    ports:
+      - "3306:3306"
+    networks:
+      - jiranet
+
+volumes:
+  db_data: {}
+  db_conf: {}
+  jira_data: {}
+
+networks:
+  jiranet:
+    driver: bridge

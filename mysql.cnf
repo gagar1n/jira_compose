@@ -1,0 +1,18 @@
+[mysqld]
+performance_schema=ON
+default_storage_engine=INNODB
+character-set-server=utf8mb4
+collation-server=utf8mb4_bin
+innodb_default_row_format=DYNAMIC
+innodb_large_prefix=ON
+innodb_file_format=Barracuda
+# innodb buffer settings
+innodb_buffer_pool_size = 512M
+innodb_log_buffer_size = 16M
+innodb_log_file_size=2G
+innodb_write_io_threads = 4
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+# Set lowercase table to allow window dumps
+lower_case_table_names = 1
+max_connections = 400
